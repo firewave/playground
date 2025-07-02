@@ -1,0 +1,19 @@
+name: 1
+
+on: [push, pull_request]
+
+permissions:
+  contents: read
+
+jobs:
+  manpage:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Install missing software on ubuntu
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y xsltproc docbook-xsl
