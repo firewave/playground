@@ -6,7 +6,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: ""
+  group: ${{ github.event_name }}-${{ github.workflow }}-${{ github.head_ref || github.ref }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }} # this will cancel only PRs
 
 jobs:
@@ -19,5 +19,6 @@ jobs:
 
       - name: Install missing software on ubuntu
         run: |
+          echo "${{ github.event_name }}-${{ github.workflow }}-${{ github.head_ref || github.ref }}"
           sudo apt-get update
           sudo apt-get install -y xsltproc docbook-xsl
